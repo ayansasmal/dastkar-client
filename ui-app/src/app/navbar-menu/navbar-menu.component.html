@@ -1,0 +1,13 @@
+<div class="dropdown-menu" aria-labelledby="dropdownUser" *ngIf="isUser">
+    <a class="dropdown-item" [routerLink]="['/user',{outlets: {'userAction':['search']}}]" routerLinkActive="active">Search User</a>
+    <a class="dropdown-item" [routerLink]="['/user',{outlets: {'userAction':['delete']}}]" routerLinkActive="active">Remove User</a>
+    <a class="dropdown-item" [routerLink]="['/user',{outlets: {'userAction':['add']}}]" routerLinkActive="active">Add User</a>
+    <a class="dropdown-item" [routerLink]="['/user',{outlets: {'userAction':['update']}}]" routerLinkActive="active">Update User</a>
+    <a class="dropdown-item" [routerLink]="['/user',{outlets: {'userAction':['role']}}]" routerLinkActive="active">Manage Roles</a>
+</div>
+<div class="dropdown-menu" aria-labelledby="dropdownProduct" *ngIf="isProduct">
+    <a class="dropdown-item" [routerLink]="['/product',{outlets: {'productAction':['search']}}]" routerLinkActive="active">Search Product</a>
+    <a class="dropdown-item" [routerLink]="['/product',{outlets: {'productAction':['delete']}}]" routerLinkActive="active">Remove Product</a>
+    <a class="dropdown-item" [routerLink]="['/product',{outlets: {'productAction':['add']}}]" routerLinkActive="active">Add Product</a>
+    <a class="dropdown-item" [routerLink]="['/product',{outlets: {'productAction':['update']}}]" routerLinkActive="active">Update Product Detail</a>
+</div>

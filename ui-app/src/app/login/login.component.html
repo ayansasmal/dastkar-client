@@ -1,0 +1,28 @@
+<div class="jumbotron col-md-5 col-sm-12 col-xs-12">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Login</h2>
+        <label for="inputUserName" class="sr-only">Username</label>
+        <input id="inputUserName" name="username" type="text" class="form-control" [(ngModel)]="userDetail.userName" placeholder="Username or email-id" required autofocus />
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input id="inputPassword" name="password" type="password" class="form-control" [(ngModel)]="userDetail.password" placeholder="Password" required/>
+        <button class="btn btn-lg btn-primary btn-block" type="button" (click)="login()">Sign in</button>
+    </form>
+</div>
+
+<!-- <div>
+    <h2>Login</h2>
+    <section>
+        <div class="row no-shadow no-margin">
+            <span class="form-element-label">Username</span>
+            <span class="form-element-field"><input type="text" [(ngModel)]="userDetail.userName" placeholder="Username or email-id"/></span>
+        </div>
+        <div class="row no-shadow no-margin">
+            <span class="form-element-label">Password</span>
+            <span class="form-element-field"><input type="password" [(ngModel)]="userDetail.password" placeholder="Password"/></span>
+        </div>
+        <div class="row no-shadow no-margin">
+            <span><button name="Login" (click)="login()">Login</button></span>
+            <span><button name="Cancel">Cancel</button></span>
+        </div>
+    </section>
+</div> -->

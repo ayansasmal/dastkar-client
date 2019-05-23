@@ -1,0 +1,115 @@
+<div [hidden]=!addUser>
+    <h2 class="display-3">Add User</h2>
+    <form [formGroup]="addUserForm" (ngSubmit)="submitAddUser()" autocomplete="off">
+        <div class="form-row alert alert-success" *ngIf="isAddUserSuccess">
+            User added successfully!!
+        </div>
+        <div class="form-row">
+            <label class="col-form-label">Name</label>
+        </div>
+        <fieldset>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="firstName" class="form-control" formControlName="firstName" required placeholder="First name" required minlength="2" maxlength="20" [ngClass]="{
+                        'is-invalid': addUserForm.controls.firstName.invalid && (addUserForm.controls.firstName.dirty || addUserForm.controls.firstName.touched),
+                        'is-valid': addUserForm.controls.firstName.valid && (addUserForm.controls.firstName.dirty || addUserForm.controls.firstName.touched)
+                      }">
+                    <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.firstName.dirty && addUserForm.controls.firstName.errors && addUserForm.controls.firstName.errors.required">
+                        First Name is required
+                    </div>
+                    <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.firstName.dirty && addUserForm.controls.firstName.errors && !addUserForm.controls.firstName.errors.required && addUserForm.controls.firstName.invalid">
+                        Please provide valid first name. No Digits, Spaces and Special Characters are allowed.
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="lastName" class="form-control" formControlName="lastName" required placeholder="Last name" required minlength="2" maxlength="20" [ngClass]="{
+                        'is-invalid': addUserForm.controls.lastName.invalid && (addUserForm.controls.lastName.dirty || addUserForm.controls.lastName.touched),
+                        'is-valid': addUserForm.controls.lastName.valid && (addUserForm.controls.lastName.dirty || addUserForm.controls.lastName.touched)
+                      }">
+                    <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.lastName.dirty && addUserForm.controls.lastName.errors && addUserForm.controls.lastName.errors.required">
+                        Last Name is required
+                    </div>
+                    <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.lastName.dirty && addUserForm.controls.lastName.errors && !addUserForm.controls.lastName.errors.required && addUserForm.controls.lastName.invalid">
+                        Please provide valid last name. No Digits, Spaces and Special Characters are allowed.
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-row">
+            <label class="col-form-label">Email Address</label>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="email" class="form-control" id="emailId" class="form-control" formControlName="emailId" required placeholder="Email Address" required minlength="2" maxlength="50" [ngClass]="{
+                    'is-invalid': addUserForm.controls.emailId.invalid && (addUserForm.controls.emailId.dirty || addUserForm.controls.emailId.touched),
+                    'is-valid': addUserForm.controls.emailId.valid && (addUserForm.controls.emailId.dirty || addUserForm.controls.emailId.touched)
+                  }">
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.emailId.dirty && addUserForm.controls.emailId.errors && addUserForm.controls.emailId.errors.required">
+                    Email Address is required
+                </div>
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.emailId.dirty && addUserForm.controls.emailId.errors && !addUserForm.controls.emailId.errors.required && addUserForm.controls.emailId.invalid">
+                    Please provide valid email address.
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="email" class="form-control" id="confEmailId" class="form-control" formControlName="confEmailId" required placeholder="Email Address" required minlength="2" maxlength="50" [ngClass]="{
+                    'is-invalid': (addUserForm.controls.confEmailId.invalid || addUserForm.controls.confEmailId.value!=addUserForm.controls.emailId.value) && (addUserForm.controls.confEmailId.dirty || addUserForm.controls.confEmailId.touched),
+                    'is-valid': addUserForm.controls.confEmailId.valid && (addUserForm.controls.confEmailId.dirty || addUserForm.controls.confEmailId.touched)
+                  }">
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.confEmailId.dirty && addUserForm.controls.confEmailId.value!=addUserForm.controls.emailId.value">
+                    Email Address entered dont match.
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="col-form-label">Desired username</label>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="username" class="form-control" formControlName="username" required placeholder="Username" required minlength="5" maxlength="40" [ngClass]="{
+                    'is-invalid': (addUserForm.controls.username.invalid || !isUserNameAvailable ) && (addUserForm.controls.username.dirty || addUserForm.controls.username.touched),
+                    'is-valid': addUserForm.controls.username.valid && isUserNameAvailable && (addUserForm.controls.username.dirty || addUserForm.controls.username.touched)
+                  }" (blur)="onUserNameChange($event.target.value)" [ngModel]="username" (ngModelChange)="onUserNameChange($event)">
+                <div class="form-control-feedback alert alert-danger" *ngIf="(addUserForm.controls.username.dirty || addUserForm.controls.username.touched) && addUserForm.controls.username.errors && addUserForm.controls.username.errors.required">
+                    Please provide desired username.
+                </div>
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.username.dirty && addUserForm.controls.username.errors && !addUserForm.controls.username.errors.required && (addUserForm.controls.username.errors.minlength || addUserForm.controls.username.errors.maxlength )">
+                    Username should be of 5-40 character length.
+                </div>
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.username.dirty && addUserForm.controls.username.errors && addUserForm.controls.username.errors.pattern">
+                    Username cannot contain any Spaces and Special Characters.
+                </div>
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.username.dirty && addUserForm.controls.username.valid && !isUserNameAvailable">
+                    Provided username is not available. Please try someother username.
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="col-form-label">Password</label>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="password" class="form-control" id="pass" class="form-control" formControlName="pass" required placeholder="Password" [ngClass]="{
+                    'is-invalid': addUserForm.controls.pass.invalid && (addUserForm.controls.pass.dirty || addUserForm.controls.pass.touched),
+                    'is-valid': addUserForm.controls.pass.valid && (addUserForm.controls.pass.dirty || addUserForm.controls.pass.touched)
+                  }">
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.pass.dirty && addUserForm.controls.pass.errors && addUserForm.controls.pass.errors.required">
+                    Password is required
+                </div>
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.pass.dirty && addUserForm.controls.pass.errors && !addUserForm.controls.pass.errors.required && addUserForm.controls.pass.invalid">
+                    Password should contain atleast 1 uppercase and 1 lowercase alphabet, 1 numeric and 1 special chacter. Special characters allowed are ! @
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="password" class="form-control" id="confPass" class="form-control" formControlName="confPass" required placeholder="Password" [ngClass]="{
+                    'is-invalid': (addUserForm.controls.confPass.invalid || addUserForm.controls.confPass.value!=addUserForm.controls.pass.value) && (addUserForm.controls.confPass.dirty || addUserForm.controls.confPass.touched),
+                    'is-valid': addUserForm.controls.confPass.valid && (addUserForm.controls.confPass.dirty || addUserForm.controls.confPass.touched)
+                  }">
+                <div class="form-control-feedback alert alert-danger" *ngIf="addUserForm.controls.confPass.dirty && addUserForm.controls.confPass.value!=addUserForm.controls.pass.value">
+                    Passwords dont match.
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="addUserForm.invalid">Submit</button>
+    </form>
+</div>
